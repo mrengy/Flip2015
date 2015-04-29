@@ -544,6 +544,27 @@ function hide_meta_boxes_posts() {
  
 }
 
+/* customizing login error message for unknown user */
+add_filter( 'login_errors', 'flip_custom_login_error' );
+/*
+ * @desc    Filter Wordpress admin error message
+ * @param str $message        Error message to be translated
+ */
+function flip_custom_login_error( $message ) {
+    global $errors;
+	$registration_url = wp_registration_url();
+
+	if (isset($errors->errors['invalid_username']) || isset($errors->errors['incorrect_password'])) :
+        $message = __('This username is not registered.', 'rys') . ' ' .
+        sprintf(('<a title="%2$s" href="%1$s">%3$s</a>?'),
+        site_url($registration_url, 'rys'),
+        __('Register', 'rys'),
+        __('Register as a new user', 'rys'));
+    endif;
+
+    return $message;    
+}
+
 /* Add login styles */
 add_action( 'login_enqueue_scripts', 'my_login_styles' );
 
