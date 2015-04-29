@@ -557,7 +557,7 @@ function flip_custom_login_error( $message ) {
 	if (isset($errors->errors['invalid_username']) || isset($errors->errors['incorrect_password'])) :
         $message = __('This username is not registered.', 'rys') . ' ' .
         sprintf(('<a title="%2$s" href="%1$s">%3$s</a>?'),
-        site_url($registration_url, 'rys'),
+        __($registration_url, 'rys'),
         __('Register', 'rys'),
         __('Register as a new user', 'rys'));
     endif;
